@@ -10,3 +10,4 @@ Route::get('/', function (): View { // Ubah tipe pengembalian hanya ke View
 
 // Route resource untuk product controller
 Route::resource('/product', App\Http\Controllers\ProductController::class);
+Route::resource('/iphone', App\Http\Controllers\IphoneController::class);

@@ -8,7 +8,7 @@ use Illuminate\View\View; // Pastikan untuk mengimpor View
 
 class ProductController extends Controller
 {
-    public function index(): View // Ubah tipe pengembalian hanya ke View
+    public function index(): Factory|View // Ubah tipe pengembalian hanya ke View
     {
         $products = Product::get(); // Ambil semua produk
 

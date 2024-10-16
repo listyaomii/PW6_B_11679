@@ -53,6 +53,15 @@
         .navbar-toggler {
             border: none; 
         }
+
+        .card {
+            transition: box-shadow 0.3s; /* Menambahkan efek transisi */
+        }
+
+        .card:hover {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Menambahkan bayangan saat hover */
+        }
+        
     </style>
 </head>
 <body>
@@ -88,38 +97,45 @@
     <div class="content">
         <div class="catalog-container"> 
             <div class="text-center mb-3">
-                <h1 class="catalog-title">Our Catalog</h1>
+                <h1 class="catalog-title">Our Iphone Series</h1>
             </div>
             <div class="catalog-subtitle">
                 We are committed to crafting high-quality products that not only meet your needs but also enhance your everyday life. We believe in innovation and excellence, ensuring every item we create brings joy and satisfaction.
             </div>
-            <div class="divider"></div>
-                <div class="row"> 
-                    @if ($products->isEmpty())
-                        <div class="col-12 text-center">
-                            <h5 class="text-muted text-danger">Data Kosong</h5>
-                        </div>
-                    @else
-                        @foreach ($products as $product)
-                            <div class="col-md-4 mb-3">
-                                <div class="card">
-                                    <div class="p-3 text-center">
-                                        <h1>{{ $product->product }}</h1>
-                                        <p>{{ $product->deskripsi }}</p>
-                                        @if ($product->product == 'Iphone')
-                                            <a href="{{url('iphone')}}" class="btn btn-outline-dark">View Product</a>
-                                        @else 
-                                            <a href="#" class="btn btn-outline-dark">View Product</a>
-                                        @endif
+            <div class="divider">
+            <div class="overflow-x-auto">
+                <div class="row flex-nowrap"> 
+                        @if ($iphones->isEmpty())
+                            <div class="col-12 text-center">
+                                <h5 class="text-muted text-danger">Data Kosong</h5>
+                            </div>
+                        @else
+
+                        @php
+                            $imageNames = [
+                                '13.jpeg',
+                                '12.jpeg',
+                                '14.jpeg',
+                                '15.jpeg',
+                                '16.jpeg',
+                            ];
+                        @endphp
+                            @foreach ($iphones as $index => $iphone)
+                                <div class="col-md-4 mb-3">
+                                    <div class="card shadow border">
+                                        <div class="p-3 text-center">
+                                            <!-- Menggunakan gambar dari folder images berdasarkan array -->
+                                            <img src="{{ asset('images/' . $imageNames[$index % count($imageNames)]) }}" alt="{{ $iphone->series }}" class="img-fluid mb-2" style="max-height: 200px; object-fit: cover;">
+                                            <h1>{{ $iphone->series }}</h1>
+                                            <p>{{ 'IDR ' . number_format($iphone->price, 0, ',', '.') }}</p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            @if (($loop->iteration % 3) == 0)
-                                </div><div class="row">
-                            @endif
-                        @endforeach
-                    @endif
-                </div> 
+                            @endforeach
+                        @endif
+                    </div> 
+                </div>
+            </div>
         </div>
     </div>
 
